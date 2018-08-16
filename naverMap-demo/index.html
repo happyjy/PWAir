@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=8DcaUbXzE6RfMGXURz18&submodules=geocoder"></script>
+</head>
+<body>
+  <script>
+    var accuracy, latitude, longitude = '';
+    var getLocation = navigator.geolocation.getCurrentPosition(function(e){
+      vccuracy = e.coords.accuracy;
+      latitude = e.coords.latitude;
+      longitude = e.coords.longitude;
+      
+      naver.maps.Service.reverseGeocode({
+        location: new naver.maps.LatLng(latitude, longitude),
+      }, function(status, response) {
+        if (status !== naver.maps.Service.Status.OK) {
+          return alert('Something wrong!');
+        }
+        
+        var result = response.result, // 검색 결과의 컨테이너
+        items = result.items; // 검색 결과의 배열
+        
+        // do Something
+        console.log(items);
+      });
+    });
+      </script>
+  
+</body>
+</html>
